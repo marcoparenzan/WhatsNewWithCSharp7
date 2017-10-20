@@ -12,13 +12,16 @@ namespace WhatsNewWithCSharp7
             
         public static Point parse(string coordinate)
         {
-            var match = Regex.Match(coordinate, @"(?<x>\d+)\,(?<y>\d+)");
+            var match = Regex.Match(coordinate, @"(?<x>\-?\d+)\,(?<y>\-?\d+)");
             if (int.TryParse(match.Groups["x"].Value, out var x) && int.TryParse(match.Groups["y"].Value, out var y))
             {
-                return new Point{ X = x, Y = y };
+                return new Point(x, y);
             }
             throw new ArgumentException("invalid format");
         }
+
+        public Point(int x, int y) => (X,Y) = (x > 0 ? x : throw new ArgumentException("x"), y > 0 ? y : throw new ArgumentException("y"));
+
         public int X;
         public int Y;
 
