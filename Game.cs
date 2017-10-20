@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
+
+using System.Threading.Tasks;
 
 using static System.Console;
 
@@ -12,7 +15,7 @@ namespace WhatsNewWithCSharp7
         static (int x, int y) coord(string coordinate)
         {
             var match = Regex.Match(coordinate, @"(?<x>\d+)\,(?<y>\d+)");
-            int x = default;
+            int x = default(int);
             if (int.TryParse(match.Groups["x"].Value, out x) && int.TryParse(match.Groups["y"].Value, out var y))
             {
                 return (x,y);
@@ -20,21 +23,8 @@ namespace WhatsNewWithCSharp7
             throw new ArgumentException("invalid format");
         }
 
-        public static void Run(string[] args)
+        public static void Run(object[,] map)
         {
-            object[,] map = {
-                { 0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0,0,"X",0 },
-                { 0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,"X",0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0,0,0,0 },
-                { 0,"Y",0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,"Y",0,0,0 },
-                { 0,0,0,0,0,0,0,0,0,0 },
-                { 0,0,0,0,0,0,0,0,0,0 }
-            };
-
             ref object Map(int x, int y)
             {
                 return ref map[x, y];
