@@ -20,7 +20,7 @@ namespace WhatsNewWithCSharp7
             throw new ArgumentException("invalid format");
         }
 
-        public Point(int x, int y) => (X,Y) = (x > 0 ? x : throw new ArgumentException("x"), y > 0 ? y : throw new ArgumentException("y"));
+        public Point(int x, int y) => (X,Y) = (x >= 0 ? x : throw new ArgumentException("x"), y >= 0 ? y : throw new ArgumentException("y"));
 
         public int X;
         public int Y;
